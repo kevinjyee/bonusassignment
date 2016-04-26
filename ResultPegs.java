@@ -24,4 +24,8 @@ public class ResultPegs {
 	public void setBlackPegs(int num_pegs){
 		black_pegs = num_pegs;
 	}
+	
+	public void printResult(){
+		System.out.println("Result: " + black_pegs + " black pegs and "  + white_pegs + " white pegs.");
+	}
 }

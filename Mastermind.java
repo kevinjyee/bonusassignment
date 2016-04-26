@@ -14,11 +14,16 @@ public class Mastermind {
 			try{
 				game.setNextGuess(guess);
 				ResultPegs pegs = game.checkLastGuess();
+				pegs.printResult();
+				System.out.println("");
 			} catch(IllegalCodeException e){
 				JOptionPane.showMessageDialog(frame,
 					    "INVALID GUESS",
 					    "Inane warning",
 					    JOptionPane.WARNING_MESSAGE);
+			} catch(NullPointerException e){
+				System.out.println("Game Exited");
+				break;
 			}
 			/*
 		    opt = JOptionPane.showOptionDialog(null,

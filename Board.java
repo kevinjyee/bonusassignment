@@ -5,12 +5,15 @@ import java.util.Random;
 public class Board {
 	private int guesses;
 	private Code secret_code;
-	public Code[] board;
+	public Code[] board = new Code[12];
 	
 	public Board(){
 		guesses = 0;
 		secret_code = new Code(generateSecretCode());
-		board = new Code[12];
+		for(int  i=0; i<12;i++){
+			board[i]= new Code();
+		}
+	
 	}
 	
 	public static String generateSecretCode(){
@@ -44,7 +47,8 @@ public class Board {
 			incrementGuesses();
 		} catch(IllegalCodeException e){
 			throw new IllegalCodeException();
-		}
+		} 
+		
 	}
 	
 	public Code getGuess(int index){
@@ -62,11 +66,40 @@ public class Board {
 	public ResultPegs checkLastGuess(){
 		ResultPegs result = new ResultPegs();
 		Code last_guess = getGuess(guesses - 1);
-		if(last_guess.equals(secret_code)){
-			result.setBlackPegs(4);
-		} else{
-			
+		
+		char[] guess = last_guess.code.toLowerCase().toCharArray();
+		char[] secret = secret_code.code.toLowerCase().toCharArray();
+		
+		
+		int bcount =0;
+		int wcount =0;
+		
+		
+		for(int i =0; i < 4; i++){
+			if(guess[i] == secret[i]){
+				guess[i] = secret[i] = '.';
+				bcount ++;
+			}
 		}
+	
+		
+		if(bcount != 4){
+			for(int i =0; i < 4; i++){
+				if(guess[i] != '.'){
+					for(int j =0; j < 4; j++){
+						if(guess[i] == secret[j]){
+							wcount++;
+							guess[i] = secret[j] = '.';
+							break;
+						}
+					}
+					
+				}
+			}
+		}
+			result.setBlackPegs(bcount);
+			result.setWhitePegs(wcount);
+		
 		return result;
 	}
 	
