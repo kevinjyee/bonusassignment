@@ -15,10 +15,7 @@ public class Mastermind {
 				game.setNextGuess(guess);
 				ResultPegs pegs = game.checkLastGuess();
 				pegs.printResult();
-				if(pegs.getBlackPegs() == 4){
-					System.out.println("Hooray! You've won!");
-					break;
-				}
+				System.out.println("");
 			} catch(IllegalCodeException e){
 				JOptionPane.showMessageDialog(frame,
 					    "INVALID GUESS",
@@ -39,4 +36,3 @@ public class Mastermind {
 	 }
 	
 }
-
