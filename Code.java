@@ -15,8 +15,9 @@ public class Code {
 		}
 	}
 	
+	// Case insensitive equals.
 	public boolean equals(Code other){
-		if(getCode() == other.getCode()){
+		if(getCode().equalsIgnoreCase(other.getCode())){
 			return true;
 		} else{
 			return false;

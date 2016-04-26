@@ -60,7 +60,14 @@ public class Board {
 	}
 	
 	public ResultPegs checkLastGuess(){
+		ResultPegs result = new ResultPegs();
 		Code last_guess = getGuess(guesses - 1);
+		if(last_guess.equals(secret_code)){
+			result.setBlackPegs(4);
+		} else{
+			
+		}
+		return result;
 	}
 	
 }
