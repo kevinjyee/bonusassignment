@@ -47,12 +47,20 @@ public class Board {
 		}
 	}
 	
+	public Code getGuess(int index){
+		if((index <= guesses) && (index >= 0)){
+			return board[index];
+		} else{
+			return null;
+		}
+	}
+	
 	public void incrementGuesses(){
 		guesses++;
 	}
 	
 	public ResultPegs checkLastGuess(){
-		
+		Code last_guess = getGuess(guesses - 1);
 	}
 	
 }

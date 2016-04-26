@@ -16,4 +16,12 @@ public class ResultPegs {
 	public int getBlackPegs(){
 		return black_pegs;
 	}
+	
+	public void setWhitePegs(int num_pegs){
+		white_pegs = num_pegs;
+	}
+	
+	public void setBlackPegs(int num_pegs){
+		black_pegs = num_pegs;
+	}
 }

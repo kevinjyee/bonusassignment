@@ -15,6 +15,14 @@ public class Code {
 		}
 	}
 	
+	public boolean equals(Code other){
+		if(getCode() == other.getCode()){
+			return true;
+		} else{
+			return false;
+		}
+	}
+	
 	public static boolean isValidCode(String input){
 		// BGOPRY are the valid colors.
 		if(input.length() != 4){
