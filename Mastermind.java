@@ -9,7 +9,10 @@ public class Mastermind {
 		 //String[] buttons = { "Yes", "No" };
 		JOptionPane frame = new JOptionPane();
 		while(game.getNumGuesses() < 12){
-			String guess = JOptionPane.showInputDialog("What is your next guess? \nType in the characters for your guess"
+			int guessleft = 12 - game.getNumGuesses();
+			
+			
+			String guess = JOptionPane.showInputDialog("You have " + guessleft + " guesses left. What is your next guess? \nType in the characters for your guess"
 				+ " and press enter. \nEnter guess:");
 			try{
 				game.setNextGuess(guess);
@@ -17,7 +20,7 @@ public class Mastermind {
 				pegs.printResult();
 				if(pegs.getBlackPegs() == 4){
 					System.out.println("Hooray! You've won!");
-					break;
+					System.exit(0);
 				}
 			} catch(IllegalCodeException e){
 				JOptionPane.showMessageDialog(frame,
@@ -26,7 +29,7 @@ public class Mastermind {
 					    JOptionPane.WARNING_MESSAGE);
 			} catch(NullPointerException e){
 				System.out.println("Game Exited");
-				break;
+				System.exit(0);
 			}
 			/*
 		    opt = JOptionPane.showOptionDialog(null,
@@ -36,6 +39,7 @@ public class Mastermind {
 		    if(opt == 1){  = false; }
 		    */
 		 }
+		System.out.println("You've Ran out of Guesses!");
 	 }
 	
 }
