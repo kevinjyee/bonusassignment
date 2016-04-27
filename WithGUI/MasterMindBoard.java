@@ -97,7 +97,7 @@ class MasterMindBoard extends JPanel
 			{
 				paintNonGuess(g,x,y+row*rowSpace);
 			}
-			paintResults(g, x + 4*SIDE_OFFSET, y + row*rowSpace - 3,numCorrect[row],numClose[row]);
+			paintResults(g, x + Mastermind.numPegs*SIDE_OFFSET, y + row*rowSpace - 3,numCorrect[row],numClose[row]);
 		}
 
 
@@ -111,7 +111,11 @@ class MasterMindBoard extends JPanel
 		}
 		else
 		{
-			paintGuess(g,x,500-y,"????");
+			String mystery = "";
+			for(int i =0; i < Mastermind.numPegs; i++){
+				mystery+= "?";
+			}
+			paintGuess(g,x,500-y,mystery);
 		}
 
 		//return the graphics object to its original orientation
@@ -122,7 +126,7 @@ class MasterMindBoard extends JPanel
 	private void paintNonGuess(Graphics g, int xOffset, int yOffset)
 	{
 		g.setColor(holeColor);
-		for(int count = 0; count < 4; count++)
+		for(int count = 0; count < Mastermind.numPegs; count++)
 		{
 			g.fillArc(xOffset + count*SIDE_OFFSET - 6,yOffset - 6,12,12,0,360);
 		}
@@ -133,7 +137,7 @@ class MasterMindBoard extends JPanel
 	{
 		g.setColor(guessedCode);
 		g.setFont(new Font("arial",Font.BOLD,16));
-		for(int count = 0; count < 4 && count < code.length(); count++)
+		for(int count = 0; count < Mastermind.numPegs && count < code.length(); count++)
 		{
 			g.drawString("" + code.charAt(count),xOffset + count*SIDE_OFFSET - 5,yOffset + 5);
 		}
