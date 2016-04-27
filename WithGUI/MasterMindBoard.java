@@ -31,8 +31,8 @@ class MasterMindBoard extends JPanel
 	private int numGuesses = 1;
 	private int rowSpace;
 	private ArrayList<String> prevGuesses = new ArrayList<String>();
-	private int[] numCorrect;
-	private int[] numClose;
+	private int[] numBlack;
+	private int[] numWhite;
 	private String correctGuess = "????";
 
 
@@ -40,9 +40,9 @@ class MasterMindBoard extends JPanel
 	{
 		numGuesses = pNumGuesses;
 		correctGuess = secretCode;
-		rowSpace = 425 / numGuesses;
-		numCorrect = new int [numGuesses];
-		numClose = new int [numGuesses];
+		rowSpace = 425 / numGuesses; //spaces to leave between each row
+		numBlack = new int [numGuesses];
+		numWhite = new int [numGuesses];
 	}
 
 	//physically paints the panel
@@ -54,14 +54,14 @@ class MasterMindBoard extends JPanel
 	}
 
 	//stores the information of a guess, so that the board can display the appropriate images
-	public void registerGuess(String guess, int numBlack, int numWhite)
+	public void registerGuess(String guess, int Black, int White)
 	{
 		int index = prevGuesses.size();
 		if(index < numGuesses)
 		{
 			prevGuesses.add(guess);
-			numCorrect[index] = numBlack;
-			numClose[index] = numWhite;
+			numBlack[index] = Black;
+			numWhite[index] = White;
 		}
 	}
 
@@ -97,7 +97,7 @@ class MasterMindBoard extends JPanel
 			{
 				paintNonGuess(g,x,y+row*rowSpace);
 			}
-			paintResults(g, x + Mastermind.numPegs*SIDE_OFFSET, y + row*rowSpace - 3,numCorrect[row],numClose[row]);
+			paintResults(g, x + Mastermind.numPegs*SIDE_OFFSET, y + row*rowSpace - 3,numBlack[row],numWhite[row]);
 		}
 
 
@@ -144,24 +144,24 @@ class MasterMindBoard extends JPanel
 	}
 
 	//paints the results of an unspecified gues on the board
-	private void paintResults(Graphics g, int xOffset, int yOffset, int numCorrect, int numClose)
+	private void paintResults(Graphics g, int xOffset, int yOffset, int numBlack, int numWhite)
 	{
-		g.setColor(getColor(numCorrect,numClose,1));
+		g.setColor(getColor(numBlack,numWhite,1));
 		g.fillOval(xOffset - 3,yOffset - 3,6,6);
-		g.setColor(getColor(numCorrect,numClose,2));
+		g.setColor(getColor(numBlack,numWhite,2));
 		g.fillOval(xOffset + RESULTS_OFFSET - 3,yOffset - 3,6,6);
-		g.setColor(getColor(numCorrect,numClose,3));
+		g.setColor(getColor(numBlack,numWhite,3));
 		g.fillOval(xOffset - 3,yOffset + RESULTS_OFFSET - 3,6,6);
-		g.setColor(getColor(numCorrect,numClose,4));
+		g.setColor(getColor(numBlack,numWhite,4));
 		g.fillOval(xOffset + RESULTS_OFFSET - 3,yOffset + RESULTS_OFFSET - 3,6,6);
 	}
 
 	//returns the color of a results peg, given that it is the numpeg'th peg t be placed, and that there were the given number of correct guesses and correct colors
-	private Color getColor(int numRight, int numClose, int numPeg)
+	private Color getColor(int numRight, int numWhite, int numPeg)
 	{
 		if(numPeg <= numRight)
 			return Color.RED;
-		if(numPeg <= numRight + numClose)
+		if(numPeg <= numRight + numWhite)
 			return Color.WHITE;
 		return Color.BLACK;
 	}
@@ -187,3 +187,4 @@ class MasterMindBoard extends JPanel
 		g.drawString("= correct letter, wrong place",xOffset + 8,yOffset + 28);
 	}
 }
+
