@@ -25,7 +25,7 @@ public class ResultPegs {
 		black_pegs = num_pegs;
 	}
 	
-	public void printResult(){
-		System.out.println("Result: " + black_pegs + " black pegs and "  + white_pegs + " white pegs.");
+	public String getResult(){
+		return  black_pegs + " black pegs and "  + white_pegs + " white pegs.";
 	}
 }

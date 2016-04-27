@@ -3,7 +3,7 @@ package bonusassignment;
 import java.util.Random;
 
 public class Board {
-	private int guesses;
+	public static int guesses;
 	private Code secret_code;
 	public Code[] board = new Code[12];
 	
@@ -51,6 +51,12 @@ public class Board {
 		
 	}
 	
+	public void setGuessResult(int index,String input){
+		
+			board[index].setResult(input);	
+		
+	}
+	
 	public Code getGuess(int index){
 		if((index <= guesses) && (index >= 0)){
 			return board[index];
@@ -62,6 +68,24 @@ public class Board {
 	public void incrementGuesses(){
 		guesses++;
 	}
+	
+	public void getHistory(){
+		if(Board.guesses == 0){
+			System.out.println("-----No current Game History------");
+		}
+		else{
+		System.out.println("------Game History---------");
+		for(int i=0; i < Board.guesses; i++){
+			int guessNumber = i+1;
+			String guessValue = getGuess(i).getCode();
+			String guessResult = getGuess(i).getResult();
+			
+			System.out.println("Guess " + guessNumber + ":" + guessValue + " ---> Result: " + guessResult);
+		}
+		System.out.println("------ End of History---------");
+		}
+	}
+
 	
 	public ResultPegs checkLastGuess(){
 		ResultPegs result = new ResultPegs();

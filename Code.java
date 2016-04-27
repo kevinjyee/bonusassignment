@@ -2,6 +2,7 @@ package bonusassignment;
 
 public class Code {
 	protected String code;
+	protected String result;
 	
 	public Code(){
 		this.code = "";
@@ -48,5 +49,13 @@ public class Code {
 		} else{
 			throw new IllegalCodeException();
 		}
+	}
+	
+	public void setResult(String input){
+		this.result = input;
+	}
+	
+	public String getResult(){
+		return this.result;
 	}
 }

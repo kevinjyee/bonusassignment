@@ -4,24 +4,43 @@ import javax.swing.JOptionPane;
 
 public class Mastermind {
 
+	public static int numGuess = 12;
+	public static int numColors = 6;//B, G, O, P , R , Y
+	public static int numPegs = 4;
+	
 	public static void main(String[] args) {
 		Board game = new Board();
-		 //String[] buttons = { "Yes", "No" };
 		JOptionPane frame = new JOptionPane();
-		while(game.getNumGuesses() < 12){
+		GameMessages.intro();
+	
+		while(true){
+			
+			if(game.getNumGuesses() == numGuess)
+			{
+				GameMessages.outofGuesses(game);
+			}
+			
 			int guessleft = 12 - game.getNumGuesses();
 			
 			
 			String guess = JOptionPane.showInputDialog("You have " + guessleft + " guesses left. What is your next guess? \nType in the characters for your guess"
-				+ " and press enter. \nEnter guess:");
+				+ " and press enter. \nOr enter 'history' to see game history \nEnter guess:");
 			try{
-				game.setNextGuess(guess);
-				ResultPegs pegs = game.checkLastGuess();
-				pegs.printResult();
-				if(pegs.getBlackPegs() == 4){
-					System.out.println("Hooray! You've won!");
-					System.exit(0);
+				if(guess.toLowerCase().equals("history")){
+					game.getHistory();
 				}
+				else{
+					game.setNextGuess(guess);
+					ResultPegs pegs = game.checkLastGuess();
+					String result = pegs.getResult();
+					System.out.println(guess + " --->Result:" + result);
+					game.setGuessResult(game.getNumGuesses()-1, result);
+					if(pegs.getBlackPegs() == numPegs){
+					GameMessages.winMessage(game);
+					}
+				}
+				
+				
 			} catch(IllegalCodeException e){
 				JOptionPane.showMessageDialog(frame,
 					    "INVALID GUESS",
@@ -31,16 +50,8 @@ public class Mastermind {
 				System.out.println("Game Exited");
 				System.exit(0);
 			}
-			/*
-		    opt = JOptionPane.showOptionDialog(null,
-		    		"Would you like to make another transaction?",
-		    		"Confirmation", 0, JOptionPane.QUESTION_MESSAGE, null,
-		    		buttons, buttons[1]);
-		    if(opt == 1){  = false; }
-		    */
 		 }
-		System.out.println("You've Ran out of Guesses!");
+
 	 }
 	
 }
-
