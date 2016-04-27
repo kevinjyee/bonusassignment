@@ -5,12 +5,12 @@ import java.util.Random;
 public class Board {
 	public static int guesses;
 	private Code secret_code;
-	public Code[] board = new Code[12];
+	public Code[] board = new Code[Mastermind.numGuess];
 	
 	public Board(){
 		guesses = 0;
 		secret_code = new Code(generateSecretCode());
-		for(int  i=0; i<12;i++){
+		for(int  i=0; i<Mastermind.numGuess;i++){
 			board[i]= new Code();
 		}
 	
@@ -19,7 +19,7 @@ public class Board {
 	public static String generateSecretCode(){
 		String validColors = "BGOPRY";
 		String result = "";
-		for(int i = 0; i < 4; i++){
+		for(int i = 0; i < Mastermind.numPegs; i++){
 			int randIndex = randInt(0, 5);
 			String character = validColors.substring(randIndex, randIndex + 1);
 			result = result + character;
@@ -99,7 +99,7 @@ public class Board {
 		int wcount =0;
 		
 		
-		for(int i =0; i < 4; i++){
+		for(int i =0; i < Mastermind.numPegs; i++){
 			if(guess[i] == secret[i]){
 				guess[i] = secret[i] = '.';
 				bcount ++;
@@ -107,10 +107,10 @@ public class Board {
 		}
 	
 		
-		if(bcount != 4){
-			for(int i =0; i < 4; i++){
+		if(bcount != Mastermind.numPegs){
+			for(int i =0; i < Mastermind.numPegs; i++){
 				if(guess[i] != '.'){
-					for(int j =0; j < 4; j++){
+					for(int j =0; j < Mastermind.numPegs; j++){
 						if(guess[i] == secret[j]){
 							wcount++;
 							guess[i] = secret[j] = '.';

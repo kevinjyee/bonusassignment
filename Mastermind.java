@@ -9,10 +9,23 @@ public class Mastermind {
 	public static int numPegs = 4;
 	
 	public static void main(String[] args) {
-		Board game = new Board();
+		
 		JOptionPane frame = new JOptionPane();
 		GameMessages.intro();
-	
+		
+		int reply = JOptionPane.showConfirmDialog(null,
+				  "Would you like to change the number of Guesses, Colors, and Pegs away from the default?"
+		        , "Change parameters", JOptionPane.YES_NO_OPTION);
+			        if (reply == JOptionPane.YES_OPTION) {
+			         GameMessages.chooseNumGuesses();
+			         GameMessages.chooseNumPegs();
+			        }
+			        else {
+			           JOptionPane.showMessageDialog(null, "Default Values will be used\nYou will have 12 guesses, 6 colors, and 4 pegs");
+			        }
+		
+	    Board game = new Board();
+	    
 		while(true){
 			
 			if(game.getNumGuesses() == numGuess)
@@ -20,7 +33,7 @@ public class Mastermind {
 				GameMessages.outofGuesses(game);
 			}
 			
-			int guessleft = 12 - game.getNumGuesses();
+			int guessleft = numGuess - game.getNumGuesses();
 			
 			
 			String guess = JOptionPane.showInputDialog("You have " + guessleft + " guesses left. What is your next guess? \nType in the characters for your guess"

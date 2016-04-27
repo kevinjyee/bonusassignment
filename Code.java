@@ -27,7 +27,7 @@ public class Code {
 	
 	public static boolean isValidCode(String input){
 		// BGOPRY are the valid colors.
-		if(input.length() != 4){
+		if(input.length() != Mastermind.numPegs){
 			return false;
 		}
 		for(int i = 0; i < input.length(); i++){

@@ -42,6 +42,15 @@ public class GameMessages {
 		        , "Confirmation", JOptionPane.YES_NO_OPTION);
 			        if (reply == JOptionPane.YES_OPTION) {
 			         game.guesses =0;
+			         int useDefault = chooseStartingValues();
+			         if(useDefault == JOptionPane.YES_OPTION){
+			        	 Mastermind.numGuess = 12;
+			        	 Mastermind.numPegs = 4;
+			         }
+			         else{
+			        	 chooseNumGuesses();
+			        	 chooseNumPegs();
+			         }
 			        }
 			        else {
 			           JOptionPane.showMessageDialog(null, "GOODBYE");
@@ -57,6 +66,16 @@ public class GameMessages {
 		        , "Confirmation", JOptionPane.YES_NO_OPTION);
 			        if (reply == JOptionPane.YES_OPTION) {
 			         game.guesses =0;
+			         int useDefault = chooseStartingValues();
+			         if(useDefault == JOptionPane.YES_OPTION){
+			        	 Mastermind.numGuess = 12;
+			        	 Mastermind.numPegs = 4;
+			         }
+			         else{
+			        	 chooseNumGuesses();
+			        	 chooseNumPegs();
+			         }
+			         
 			        }
 			        else {
 			           JOptionPane.showMessageDialog(null, "GOODBYE");
@@ -64,4 +83,46 @@ public class GameMessages {
 			        }
 	}
 	
-}
+	  public static void chooseNumGuesses() {
+		    String[] choices = { "15", "14", "13", "12", "11", "10" };
+		    String input = (String) JOptionPane.showInputDialog(null, "Choose now...",
+		        "Number of Guesses", JOptionPane.QUESTION_MESSAGE, null, // Use
+		                                                                        // default
+		                                                                        // icon
+		        choices, // Array of choices
+		        choices[3]); // Initial choice
+		    try{
+		    Mastermind.numGuess = Integer.parseInt(input);
+		    }
+		    catch(NumberFormatException e){
+		    	JOptionPane.showMessageDialog(null, "The Number of Guesses will default to 12");
+		    	Mastermind.numGuess = 12;
+		    }
+		  }
+	  
+	  public static void chooseNumPegs() {
+		    String[] choices = { "6", "5", "4", "3", "2", "1" };
+		    String input = (String) JOptionPane.showInputDialog(null, "Choose now...",
+		        "Number of Guesses", JOptionPane.QUESTION_MESSAGE, null, // Use
+		                                                                        // default
+		                                                                        // icon
+		        choices, // Array of choices
+		        choices[2]); // Initial choice
+		    try{
+		    Mastermind.numPegs= Integer.parseInt(input);
+		    }
+		    catch(NumberFormatException e){
+		    	JOptionPane.showMessageDialog(null, "The Number of Pegs will default to 4");
+		    	Mastermind.numPegs = 4;
+		    }
+		  }
+	  
+	  public static int chooseStartingValues(){
+		  int reply = JOptionPane.showConfirmDialog(null,
+				  "Would you like to use default starting values?"
+		        , "Confirmation", JOptionPane.YES_NO_OPTION);
+			        return reply;
+	  }
+		}
+	
+
