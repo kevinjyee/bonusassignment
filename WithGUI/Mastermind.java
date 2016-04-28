@@ -1,7 +1,13 @@
-package bonusassignment;
+package bonusassignment;//.WithGUI;
 import java.util.*;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.io.Console;
 public class Mastermind {
@@ -20,6 +26,7 @@ public class Mastermind {
 			try{
 
 				JOptionPane frame = new JOptionPane();
+				MyButtons clickable = new MyButtons();
 				if(!replay){
 					GameMessages.intro();
 				}
@@ -37,7 +44,7 @@ public class Mastermind {
 
 				Board game = new Board();
 
-				MasterGUI gameBoard = new MasterGUI(numGuess, game.getSecretCode());
+				MasterGUI gameBoard = new MasterGUI(numGuess, game.getSecretCode(), clickable);
 
 				while(true){
 
@@ -81,6 +88,7 @@ public class Mastermind {
 						System.out.println("Game Exited");
 						System.exit(0);
 					}
+					
 				}
 			} catch(RestartException e){
 				continue_playing = true;
@@ -90,10 +98,66 @@ public class Mastermind {
 
 	 }
 	
-	public void mouseClicked(MouseEvent e) {
-	    int x=e.getX();
-	    int y=e.getY();
-	    System.out.println(x+","+y);//these co-ords are relative to the component
+	public class Buttons extends JFrame implements ActionListener {
+		  public JButton red_button = new JButton("RED");
+		  public JButton blue_button = new JButton("BLUE");
+		  public JButton purple_button = new JButton("PURPLE");
+		  public JButton orange_button = new JButton("ORANGE");
+		  public JButton yellow_button = new JButton("YELLOW");
+		  public JButton green_button = new JButton("GREEN");
+		  public JButton submit_button = new JButton("SUBMIT");
+		  public JButton redact_button = new JButton("REDACT");
+		  
+		  final Color PURPLE = new Color(160, 32, 240);
+
+		  public Buttons() {
+		    red_button.addActionListener(this);
+		    red_button.setBackground(Color.RED);
+		    blue_button.addActionListener(this);
+		    blue_button.setBackground(Color.BLUE);
+		    purple_button.addActionListener(this);
+		    purple_button.setBackground(PURPLE);
+		    orange_button.addActionListener(this);
+		    orange_button.setBackground(Color.ORANGE);
+		    yellow_button.addActionListener(this);
+		    yellow_button.setBackground(Color.YELLOW);
+		    green_button.addActionListener(this);
+		    green_button.setBackground(Color.GREEN);
+		    submit_button.addActionListener(this);
+		    redact_button.addActionListener(this);
+		    //... add buttons to frame ...
+		    /*
+		    red_button.setLayout(null);
+		    red_button.setLayout(null);
+		    red_button.setLayout(null);
+		    red_button.setLayout(null);
+		    red_button.setLayout(null);
+		    red_button.setLayout(null);
+		    */
+		  }
+
+		  public void actionPerformed(ActionEvent evt) {
+		    Object src = evt.getSource();
+		    if (src == red_button) {
+		      //... perform action for button 1
+		    	System.out.println("LOLOLOL");
+		    } else if (src == blue_button) {
+		      //... perform action for button 2
+		    } else if (src == purple_button) {
+			      //... perform action for button 2
+			} else if (src == orange_button) {
+			      //... perform action for button 2
+			} else if (src == yellow_button) {
+			      //... perform action for button 2
+		    } else if (src == green_button) {
+				      //... perform action for button 2
+			} else if (src == submit_button){
+				
+			} else if (src == redact_button){
+				
+			}
+		  }
 	}
+
 	
 }

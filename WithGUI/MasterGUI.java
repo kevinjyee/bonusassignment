@@ -1,4 +1,4 @@
-package bonusassignment;
+package bonusassignment;//.WithGUI;
 
 import java.awt.*;
 import java.util.*;
@@ -15,18 +15,16 @@ public class MasterGUI extends JFrame
 
 	//Constructor makes a JFrame, adds the guess menu, and the board
 	//needs the number of guesses for this game and an object to register button clicks
-	public MasterGUI(int numGuesses, String correctGuess)
+	public MasterGUI(int numGuesses, String correctGuess, MyButtons clickable)
 	{
-		super("MasterMind");
+		//super("MasterMind");
 
 		//layouts for the window and the menu-panel
 		BorderLayout org = new BorderLayout();
 		FlowLayout org2 = new FlowLayout();
 
 
-		
-
-		graphic = new MasterMindBoard(numGuesses, correctGuess);
+		graphic = new MasterMindBoard(numGuesses, correctGuess, clickable);
 		//registers the guess with the MasterMindBoard and resets the textbox
 		
 
@@ -49,6 +47,7 @@ public class MasterGUI extends JFrame
 	public void gameover(){
 		graphic.gameOver();
 	}
-
-
+	
 }
+
+

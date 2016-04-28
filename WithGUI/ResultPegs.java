@@ -1,4 +1,4 @@
-package bonusassignment;
+package bonusassignment;//.WithGUI;
 
 public class ResultPegs {
 	private int white_pegs;
