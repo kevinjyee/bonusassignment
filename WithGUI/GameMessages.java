@@ -10,20 +10,22 @@ public class GameMessages {
 	
 	public static void intro(){
 		int reply = JOptionPane.showConfirmDialog(null,
-				"Welcome to Mastermind. Here are the rules.\n"
-				+ " This is a text version of the classic board game Mastermind.\n"
-				+ "The computer will think of a secret code. The code consists of 4 colored pegs.\n"
+				"Welcome to Mastermind. Here are the rules:\n"
+				+ "This is a text version of the classic board game Mastermind.\n"
+				+ "With default settings, the computer will think of a secret code consisting of 4 colored pegs.\n"
 		        + "The pegs may be one of six colors: blue, green, orange, purple, red, or yellow.\n" 
-				+ "A color may appear more than once in the code.\n" 
+				+ "A color may appear more than once in any given code.\n" 
 		        + "You try to guess what colored pegs are in the code and what order they are in.\n" 
 		        + "After you make a valid guess the result (feedback) will be displayed.\n"
-		        + "The result consists of a black peg for each peg you have guessed exactly correct\n"
+		        + "The result consists of a red peg for each peg you have guessed exactly correct\n"
 		        + "(color and position) in your guess.\n" 
 		        + "For each peg in the guess that is the correct color, but is out of position, you get a white peg.\n" 
-				+ "For each peg, which is fully incorrect, you get no feedback.\n"
-		        + "Only the first letter of the color is displayed. B for Blue, R for Red, and so forth.\n"
-		        + "When entering guesses you only need to enter the first character of each color as a capital letter.\n"
-		        + "You have 12 guesses to figure out the secret code or you lose the game.\n\n"
+				+ "For each peg, which is fully incorrect, you get no feedback (black).\n"
+		        + "Colored pegs are displayed on the board for past and current guesses.\n"
+		        + "When entering guesses you must select the color you want using any of the six colored buttons.\n"
+		        + "After you select enough colors to make up a valid guess, click SUBMIT to submit the guess.\n"
+		        + "If you would like to clear your current guess to try a new combination, click the CLEAR button.\n"
+		        + "With default settings, you have 12 guesses to figure out the secret code or you lose the game.\n\n"
 		        + "Are you ready to play? (Y/N):"
 		        , "Instructions", JOptionPane.YES_NO_OPTION);
 			        if (reply == JOptionPane.YES_OPTION) {

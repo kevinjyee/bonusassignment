@@ -27,7 +27,6 @@ public class Images implements Runnable {
 				(int) (imageSrc.getWidth()),
 				(int) (imageSrc.getHeight()),
 				Image.SCALE_DEFAULT));
-		
 	}
 	
 	

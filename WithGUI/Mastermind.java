@@ -20,7 +20,6 @@ public class Mastermind {
 	public static MasterGUI runningGame;
 	public static void main(String[] args) {
 		
-		boolean submit = false;
 		boolean continue_playing = true;
 		boolean replay = false;
 		
@@ -61,31 +60,23 @@ public class Mastermind {
 
 					}
 
-					int guessleft = numGuess - game.getNumGuesses();
-
-					/*
-					String guess = JOptionPane.showInputDialog("You have " + guessleft + " guesses left. What is your next guess? \n"
-							+ "Type in the characters for your guess."
-							+ " and press enter. Options include BGOPRY. \nOr enter 'history' to see game history \nEnter guess:");
-					
-*/
-					
 					try{
 
 						//System.out.println("TEST");
 						
+						
 							if(guess.length() == numPegs){
-							game.setNextGuess(guess);
-							ResultPegs pegs = game.checkLastGuess();
-							String result = pegs.getResult();
-							System.out.println(guess + " --->Result:" + result);
-							game.setGuessResult(game.getNumGuesses()-1, result);
-							gameBoard.submitFeedback(guess,pegs.getBlackPegs() , pegs.getWhitePegs());
-							guess = "";
-							if(pegs.getBlackPegs() == numPegs){
-								gameBoard.gameover();
-								GameMessages.winMessage(game);
-							}
+								game.setNextGuess(guess);
+								ResultPegs pegs = game.checkLastGuess();
+								String result = pegs.getResult();
+								System.out.println(guess + " --->Result:" + result);
+								game.setGuessResult(game.getNumGuesses()-1, result);
+								gameBoard.submitFeedback(guess,pegs.getBlackPegs() , pegs.getWhitePegs());
+								guess = "";
+								if(pegs.getBlackPegs() == numPegs){
+									gameBoard.gameover();
+									GameMessages.winMessage(game);
+								}
 							}
 						
 
@@ -112,18 +103,27 @@ public class Mastermind {
 	
 	
 	public static class MyButtons extends JFrame implements ActionListener {
-		  public JButton red_button = new JButton("RED");
-		  public JButton blue_button = new JButton("BLUE");
-		  public JButton purple_button = new JButton("PURPLE");
-		  public JButton orange_button = new JButton("ORANGE");
-		  public JButton yellow_button = new JButton("YELLOW");
-		  public JButton green_button = new JButton("GREEN");
-		  public JButton submit_button = new JButton("SUBMIT");
-		  public JButton clear_button = new JButton("CLEAR");
+		  public JButton red_button;
+		  public JButton blue_button;
+		  public JButton purple_button;
+		  public JButton orange_button;
+		  public JButton yellow_button;
+		  public JButton green_button;
+		  public JButton submit_button;
+		  public JButton clear_button;
 		  
 		  final Color PURPLE = new Color(160, 32, 240);
 
 		  public MyButtons() {
+			red_button = new JButton("");  
+			blue_button = new JButton("");
+			purple_button = new JButton("");
+			orange_button = new JButton("");
+			yellow_button = new JButton("");
+			green_button = new JButton("");
+			submit_button = new JButton("SUBMIT");
+			clear_button = new JButton("CLEAR");
+			
 		    red_button.addActionListener(this);
 		    red_button.setBackground(Color.RED);
 		    blue_button.addActionListener(this);
@@ -138,6 +138,7 @@ public class Mastermind {
 		    green_button.setBackground(Color.GREEN);
 		    submit_button.addActionListener(this);
 		    clear_button.addActionListener(this);
+
 		    //... add buttons to frame ...
 		    /*
 		    red_button.setLayout(null);

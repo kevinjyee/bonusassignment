@@ -12,6 +12,7 @@ class MasterMindBoard extends JPanel
 
 	//Font
 	final static Font DIRECTION_FONT = new Font("Arial",Font.BOLD,12);
+	final Font defFont = new JLabel().getFont();
 
 
 	//board dimensions
@@ -59,7 +60,7 @@ class MasterMindBoard extends JPanel
 
 		drawBoard(g,100,60);
 		paintDirections(g,117,65 + BOARD_HEIGHT);
-		paintGuessBuffer(g, 117, 80+ BOARD_HEIGHT);
+		paintGuessBuffer(g, 117, BOARD_HEIGHT - 28);
 		
 //		add(clickable.red_button);
 //		add(clickable.blue_button);
@@ -72,7 +73,13 @@ class MasterMindBoard extends JPanel
 
 
 		for(int i = 0; i < clickable.length; i++){
-			add(clickable[i]);
+			if(i < 6){
+				clickable[i].setBounds(20 + (i * 70), BOARD_HEIGHT + 150, 70, 30);
+				add(clickable[i]);
+			} else{
+				clickable[i].setBounds(230 + ((i - 7) * 90), BOARD_HEIGHT + 115, 90, 30);
+				add(clickable[i]);
+			}
 		}
 
 		
@@ -119,6 +126,7 @@ class MasterMindBoard extends JPanel
 		
 		int x = 30;
 		int y = 30;
+		drawTitle(g, 50, -10);
 
 
 		//draws the player guess area
@@ -138,13 +146,13 @@ class MasterMindBoard extends JPanel
 
 		//draws the solution area
 		g.setColor(KHAKI);
-		g.fillRect(x-10,500 - (int)(1.5 * y), (130 / 4) * Mastermind.numPegs ,y);
+		g.fillRect(x-10,500 - (int)(1.5 * y) - 20, (130 / 4) * Mastermind.numPegs ,y);
 		//paintHiddenCode(g, x, 513 - (int)(1.5 * y));
 		g.setColor(KHAKI);
 
 		if(gameOver)
 		{
-			paintGuess(g,x,500-y,correctGuess);
+			paintGuess(g,x,500-y - 20,correctGuess);
 		}
 		else
 		{
@@ -152,13 +160,23 @@ class MasterMindBoard extends JPanel
 			for(int i =0; i < Mastermind.numPegs; i++){
 				mystery+= "?";
 			}
-			paintGuess(g,x,500-y,mystery);
+			paintHiddenCode(g,x,500-y,mystery);
 		}
 
 		//return the graphics object to its original orientation
 		g.translate(-xOffset,-yOffset);
 	}
 
+	
+	private void drawTitle(Graphics g, int xOffset, int yOffset){
+		
+		Font title_font = new Font("SansSerif",Font.BOLD,25);
+		g.setFont(title_font);
+		g.setColor(Color.BLACK);
+		g.drawString("MASTERMIND", xOffset - 4, yOffset);
+		g.setFont(defFont);
+	}
+	
 	//paints one "empty" row of the gameboard
 	private void paintNonGuess(Graphics g, int xOffset, int yOffset)
 	{
@@ -177,17 +195,29 @@ class MasterMindBoard extends JPanel
 		{
 			g.setColor(guessCode[count]);
 			g.fillArc(xOffset + count*SIDE_OFFSET - 6,yOffset - 6,12,12,0,360);
+		}		
+	}
+	
+	private void paintHiddenCode(Graphics g, int xOffset, int yOffset, String code){
+		boolean qMarkFlag = true;
+		for(int i = 0; i < code.length(); i++){
+			String character = code.substring(i, i + 1);
+			if(!character.equals("?")){
+				qMarkFlag = false;
+			}
 		}
-		if(code.equals("????") || code.equals("?????") || code.equals("??????"))
+		if(qMarkFlag)
 		{
 			g.setColor(guessedCode);
 			g.setFont(new Font("arial",Font.BOLD,16));
 			for(int count = 0; count < Mastermind.numPegs && count < code.length(); count++)
 			{
-				g.drawString("" + code.charAt(count),xOffset + count*SIDE_OFFSET - 5,yOffset + 5);
+				g.drawString("" + code.charAt(count),xOffset + count*SIDE_OFFSET - 5,yOffset - 15);
 			}
+			g.setColor(Color.RED);
+			g.drawString("SECRET", xOffset - 100, yOffset - 15);
+			g.drawString("GUESS", xOffset - 100, yOffset + 14);
 		}
-		
 	}
 
 	//paints the results of an unspecified guess on the board
@@ -227,22 +257,30 @@ class MasterMindBoard extends JPanel
 	//Prints the directions for what the board means
 	private void paintDirections(Graphics g,  int xOffset, int yOffset)
 	{
+		xOffset += 10;
 		g.setFont(DIRECTION_FONT);
 
 		//paint Background
 		g.setColor(Color.YELLOW);
-		g.fillRect(xOffset-5,yOffset,175,34);
+		g.fillRect(xOffset-5,yOffset,220,46);
 
 		//paint peg representations
-		g.setColor(getColor(1,0,1));
+		g.setColor(Color.BLACK);
 		g.fillOval(xOffset,yOffset + 4,6,6);
-		g.setColor(getColor(0,1,1));
+		g.setColor(Color.BLACK);
 		g.fillOval(xOffset,yOffset + 20,6,6);
+		g.setColor(Color.BLACK);
+		g.fillOval(xOffset,yOffset + 36,6,6);
 
 		//paint words
 		g.setColor(Color.BLACK);
+		g.drawString("Select colors using colored buttons.",xOffset + 8,yOffset + 12);
+		g.drawString("Click SUBMIT to submit guess.",xOffset + 8,yOffset + 28);
+		g.drawString("Click CLEAR to clear selection.",xOffset + 8,yOffset + 44);
+		/*
 		g.drawString("= correct color and place",xOffset + 8,yOffset + 12);
 		g.drawString("= correct color, wrong place",xOffset + 8,yOffset + 28);
+		*/
 	}
 	
 	
