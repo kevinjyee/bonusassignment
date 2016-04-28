@@ -268,7 +268,7 @@ class MasterMindBoard extends JPanel
 		
 		
 		Color[] guessCode = colorSelector(code);
-		for(int count = 0; count < Mastermind.numPegs; count++)
+		for(int count = 0; count < Mastermind.thisGuess.size(); count++)
 		{
 			g.setColor(guessCode[count]);
 			g.fillArc(xOffset + count*SIDE_OFFSET - 6,yOffset - 6,12,12,0,360);

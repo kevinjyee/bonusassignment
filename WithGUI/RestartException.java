@@ -1,4 +1,4 @@
-package bonusassignment.WithGUI;
+package bonusassignment;
 
 public class RestartException extends RuntimeException {
 

@@ -17,7 +17,7 @@ public class Mastermind {
 	public static int numPegs = 4;
 	public static ArrayList<String> thisGuess = new ArrayList<String>();
 	public static String guess = "";
-	
+	public static MasterGUI runningGame;
 	public static void main(String[] args) {
 		
 		boolean continue_playing = true;
@@ -49,7 +49,7 @@ public class Mastermind {
 				Board game = new Board();
 
 				MasterGUI gameBoard = new MasterGUI(numGuess, game.getSecretCode(), buttons);
-
+				runningGame = gameBoard;
 				while(true){
 					
 					if(game.getNumGuesses() == numGuess)
@@ -61,19 +61,20 @@ public class Mastermind {
 
 					int guessleft = numGuess - game.getNumGuesses();
 
-					
+					/*
 					String guess = JOptionPane.showInputDialog("You have " + guessleft + " guesses left. What is your next guess? \n"
 							+ "Type in the characters for your guess."
 							+ " and press enter. Options include BGOPRY. \nOr enter 'history' to see game history \nEnter guess:");
 					
-
+*/
+					
 					try{
 
 						if(guess.toLowerCase().equals("history")){
 							game.getHistory();
 						}
 						else{
-							game.setNextGuess(guess);
+							if(guess.length() == numPegs){
 							ResultPegs pegs = game.checkLastGuess();
 							String result = pegs.getResult();
 							System.out.println(guess + " --->Result:" + result);
@@ -82,6 +83,7 @@ public class Mastermind {
 							if(pegs.getBlackPegs() == numPegs){
 								gameBoard.gameover();
 								GameMessages.winMessage(game);
+							}
 							}
 						}
 
@@ -149,22 +151,28 @@ public class Mastermind {
 		    Object src = evt.getSource();
 		    if (src == red_button) {
 		    	if(thisGuess.size() < numPegs){
-		    		thisGuess.add("R");}
+		    		thisGuess.add("R");
+		    		runningGame.repaint();}
 		    } else if (src == blue_button) {
 		    	if(thisGuess.size() < numPegs){
-		    		thisGuess.add("B");}
+		    		thisGuess.add("B");
+		    		runningGame.repaint();}
 		    } else if (src == purple_button) {
 		    	if(thisGuess.size() < numPegs){
-		    		thisGuess.add("P");}
+		    		thisGuess.add("P");
+		    		runningGame.repaint();}
 			} else if (src == orange_button) {
 		    	if(thisGuess.size() < numPegs){
-		    		thisGuess.add("O");}
+		    		thisGuess.add("O");
+		    		runningGame.repaint();}
 			} else if (src == yellow_button) {
 		    	if(thisGuess.size() < numPegs){
-		    		thisGuess.add("Y");}
+		    		thisGuess.add("Y");
+		    		runningGame.repaint();}
 		    } else if (src == green_button) {
 		    	if(thisGuess.size() < numPegs){
-		    		thisGuess.add("G");}
+		    		thisGuess.add("G");
+		    		runningGame.repaint();}
 			} else if (src == submit_button){
 				if(thisGuess.size() == numPegs){
 					for(int i = 0; i < numPegs; i++){
@@ -180,7 +188,7 @@ public class Mastermind {
 		  
 		  public JButton[] getButtonArray(){
 			  JButton[] buttons = { this.red_button, this.blue_button, this.green_button, this.purple_button, this.orange_button,
-					  this.yellow_button
+					  this.yellow_button,this.submit_button,this.redact_button
 			  };
 			  return buttons;
 		  }

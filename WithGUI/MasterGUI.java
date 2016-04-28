@@ -44,6 +44,10 @@ public class MasterGUI extends JFrame
 			repaint();
 		}
 	
+	 public void submitColor(){
+		 repaint();
+	 }
+	
 	public void gameover(){
 		graphic.gameOver();
 	}
