@@ -53,6 +53,7 @@ public class Mastermind {
 				runningGame = gameBoard;
 				while(true){
 					
+
 					if(game.getNumGuesses() == numGuess)
 					{
 						gameBoard.gameover();
@@ -71,7 +72,7 @@ public class Mastermind {
 					
 					try{
 
-						
+						//System.out.println("TEST");
 						
 							if(guess.length() == numPegs){
 							game.setNextGuess(guess);
@@ -118,7 +119,7 @@ public class Mastermind {
 		  public JButton yellow_button = new JButton("YELLOW");
 		  public JButton green_button = new JButton("GREEN");
 		  public JButton submit_button = new JButton("SUBMIT");
-		  public JButton redact_button = new JButton("REDACT");
+		  public JButton clear_button = new JButton("CLEAR");
 		  
 		  final Color PURPLE = new Color(160, 32, 240);
 
@@ -136,7 +137,7 @@ public class Mastermind {
 		    green_button.addActionListener(this);
 		    green_button.setBackground(Color.GREEN);
 		    submit_button.addActionListener(this);
-		    redact_button.addActionListener(this);
+		    clear_button.addActionListener(this);
 		    //... add buttons to frame ...
 		    /*
 		    red_button.setLayout(null);
@@ -181,8 +182,7 @@ public class Mastermind {
 					}
 					thisGuess.clear();
 				}
-				
-			} else if (src == redact_button){
+			} else if (src == clear_button){
 				thisGuess.clear();
 				runningGame.repaint();
 			}
@@ -190,7 +190,7 @@ public class Mastermind {
 		  
 		  public JButton[] getButtonArray(){
 			  JButton[] buttons = { this.red_button, this.blue_button, this.green_button, this.purple_button, this.orange_button,
-					  this.yellow_button,this.submit_button,this.redact_button
+					  this.yellow_button,this.submit_button,this.clear_button
 			  };
 			  return buttons;
 		  }

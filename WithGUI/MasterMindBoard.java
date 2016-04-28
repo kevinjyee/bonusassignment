@@ -113,7 +113,7 @@ class MasterMindBoard extends JPanel
 			
 		}
 		g.translate(xOffset,yOffset);
-		 g.drawImage(dog.DOGE_IMAGE, 0, 0, null);
+		g.drawImage(dog.DOGE_IMAGE, 0, 0, null);
 //		g.setColor(boardColor);
 //		g.fillRect(0,0,BOARD_WIDTH,BOARD_HEIGHT);
 		
@@ -138,7 +138,7 @@ class MasterMindBoard extends JPanel
 
 		//draws the solution area
 		g.setColor(KHAKI);
-		g.fillRect(x-10,500 - (int)(1.5 * y), 130,y);
+		g.fillRect(x-10,500 - (int)(1.5 * y), (130 / 4) * Mastermind.numPegs ,y);
 		//paintHiddenCode(g, x, 513 - (int)(1.5 * y));
 		g.setColor(KHAKI);
 
@@ -178,7 +178,7 @@ class MasterMindBoard extends JPanel
 			g.setColor(guessCode[count]);
 			g.fillArc(xOffset + count*SIDE_OFFSET - 6,yOffset - 6,12,12,0,360);
 		}
-		if(code.equals("????"))
+		if(code.equals("????") || code.equals("?????") || code.equals("??????"))
 		{
 			g.setColor(guessedCode);
 			g.setFont(new Font("arial",Font.BOLD,16));
@@ -189,28 +189,39 @@ class MasterMindBoard extends JPanel
 		}
 		
 	}
-	
-	// Draws question marks in secret code area.
-	private void paintHiddenCode(Graphics g, int xOffset, int yOffset){
-		g.setColor(guessedCode);
-		g.setFont(new Font("arial",Font.BOLD,16));
-		for(int i = 0; i < Mastermind.numPegs; i++)
-		{
-			g.drawString("?",xOffset + i*SIDE_OFFSET - 5,yOffset + 5);
-		}
-	}
 
 	//paints the results of an unspecified guess on the board
 	private void paintResults(Graphics g, int xOffset, int yOffset, int numBlack, int numWhite)
 	{
-		g.setColor(getColor(numBlack,numWhite,1));
-		g.fillOval(xOffset - 3,yOffset - 3,6,6);
-		g.setColor(getColor(numBlack,numWhite,2));
-		g.fillOval(xOffset + RESULTS_OFFSET - 3,yOffset - 3,6,6);
-		g.setColor(getColor(numBlack,numWhite,3));
-		g.fillOval(xOffset - 3,yOffset + RESULTS_OFFSET - 3,6,6);
-		g.setColor(getColor(numBlack,numWhite,4));
-		g.fillOval(xOffset + RESULTS_OFFSET - 3,yOffset + RESULTS_OFFSET - 3,6,6);
+		for(int i = 0; i < Mastermind.numPegs; i++){
+			switch(i){
+				case 1: yOffset += RESULTS_OFFSET;
+					break;
+				case 2: xOffset += RESULTS_OFFSET;
+					yOffset -= RESULTS_OFFSET;
+					break;
+				case 3: yOffset += RESULTS_OFFSET;
+					break;
+				case 4: xOffset += RESULTS_OFFSET;
+					yOffset -= RESULTS_OFFSET;
+					break;
+				case 5: yOffset += RESULTS_OFFSET;
+					break;
+			}
+			g.setColor(getColor(numBlack,numWhite,i + 1));
+			g.fillOval(xOffset - 3, yOffset - 3, 6, 6);
+			g.fillOval(xOffset - 3, yOffset - 3, 6, 6);
+			/*
+			g.setColor(getColor(numBlack,numWhite,1));
+			g.fillOval(xOffset - 3,yOffset - 3,6,6);
+			g.setColor(getColor(numBlack,numWhite,2));
+			g.fillOval(xOffset + RESULTS_OFFSET - 3,yOffset - 3,6,6);
+			g.setColor(getColor(numBlack,numWhite,3));
+			g.fillOval(xOffset - 3,yOffset + RESULTS_OFFSET - 3,6,6);
+			g.setColor(getColor(numBlack,numWhite,4));
+			g.fillOval(xOffset + RESULTS_OFFSET - 3,yOffset + RESULTS_OFFSET - 3,6,6);
+			*/
+		}
 	}
 
 	//Prints the directions for what the board means
@@ -239,10 +250,11 @@ class MasterMindBoard extends JPanel
 	
 	{
 		if(Mastermind.thisGuess.size() == 0){
-		emptyGuess(g, xOffset, yOffset);
+			
+		emptyGuess(g, xOffset+12, yOffset);
 		}
 		else{
-			nonemptyGuess(g, xOffset,yOffset);
+			nonemptyGuess(g, xOffset+12,yOffset);
 		}
 		
 		
