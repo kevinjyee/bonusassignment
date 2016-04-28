@@ -1,4 +1,4 @@
-package bonusassignment;//.WithGUI;
+package bonusassignment.WithGUI;
 import java.util.*;
 
 import javax.swing.JButton;
@@ -15,6 +15,8 @@ public class Mastermind {
 	public static int numGuess = 12;
 	public static int numColors = 6;//B, G, O, P , R , Y 
 	public static int numPegs = 4;
+	public static ArrayList<String> thisGuess = new ArrayList<String>();
+	public static String guess = "";
 	
 	public static void main(String[] args) {
 		
@@ -27,6 +29,8 @@ public class Mastermind {
 
 				JOptionPane frame = new JOptionPane();
 				MyButtons clickable = new MyButtons();
+				JButton[] buttons = clickable.getButtonArray();
+				
 				if(!replay){
 					GameMessages.intro();
 				}
@@ -44,10 +48,10 @@ public class Mastermind {
 
 				Board game = new Board();
 
-				MasterGUI gameBoard = new MasterGUI(numGuess, game.getSecretCode(), clickable);
+				MasterGUI gameBoard = new MasterGUI(numGuess, game.getSecretCode(), buttons);
 
 				while(true){
-
+					
 					if(game.getNumGuesses() == numGuess)
 					{
 						gameBoard.gameover();
@@ -57,11 +61,14 @@ public class Mastermind {
 
 					int guessleft = numGuess - game.getNumGuesses();
 
-
+					/*
 					String guess = JOptionPane.showInputDialog("You have " + guessleft + " guesses left. What is your next guess? \n"
 							+ "Type in the characters for your guess."
 							+ " and press enter. Options include BGOPRY. \nOr enter 'history' to see game history \nEnter guess:");
+					*/
+
 					try{
+
 						if(guess.toLowerCase().equals("history")){
 							game.getHistory();
 						}
@@ -98,7 +105,9 @@ public class Mastermind {
 
 	 }
 	
-	public class Buttons extends JFrame implements ActionListener {
+	
+	
+	public static class MyButtons extends JFrame implements ActionListener {
 		  public JButton red_button = new JButton("RED");
 		  public JButton blue_button = new JButton("BLUE");
 		  public JButton purple_button = new JButton("PURPLE");
@@ -110,7 +119,7 @@ public class Mastermind {
 		  
 		  final Color PURPLE = new Color(160, 32, 240);
 
-		  public Buttons() {
+		  public MyButtons() {
 		    red_button.addActionListener(this);
 		    red_button.setBackground(Color.RED);
 		    blue_button.addActionListener(this);
@@ -139,23 +148,41 @@ public class Mastermind {
 		  public void actionPerformed(ActionEvent evt) {
 		    Object src = evt.getSource();
 		    if (src == red_button) {
-		      //... perform action for button 1
-		    	System.out.println("LOLOLOL");
+		    	if(thisGuess.size() < numPegs){
+		    		thisGuess.add("R");}
 		    } else if (src == blue_button) {
-		      //... perform action for button 2
+		    	if(thisGuess.size() < numPegs){
+		    		thisGuess.add("B");}
 		    } else if (src == purple_button) {
-			      //... perform action for button 2
+		    	if(thisGuess.size() < numPegs){
+		    		thisGuess.add("P");}
 			} else if (src == orange_button) {
-			      //... perform action for button 2
+		    	if(thisGuess.size() < numPegs){
+		    		thisGuess.add("O");}
 			} else if (src == yellow_button) {
-			      //... perform action for button 2
+		    	if(thisGuess.size() < numPegs){
+		    		thisGuess.add("Y");}
 		    } else if (src == green_button) {
-				      //... perform action for button 2
+		    	if(thisGuess.size() < numPegs){
+		    		thisGuess.add("G");}
 			} else if (src == submit_button){
+				if(thisGuess.size() == numPegs){
+					for(int i = 0; i < numPegs; i++){
+						guess += thisGuess.get(i);
+					}
+					thisGuess.clear();
+				}
 				
 			} else if (src == redact_button){
-				
+				thisGuess.clear();
 			}
+		  }
+		  
+		  public JButton[] getButtonArray(){
+			  JButton[] buttons = { this.red_button, this.blue_button, this.green_button, this.purple_button, this.orange_button,
+					  this.yellow_button
+			  };
+			  return buttons;
 		  }
 	}
 

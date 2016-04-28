@@ -1,4 +1,4 @@
-package bonusassignment;//.WithGUI;
+package bonusassignment.WithGUI;
 
 import javax.swing.JOptionPane;
 

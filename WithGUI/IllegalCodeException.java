@@ -1,4 +1,4 @@
-package bonusassignment;//.WithGUI;
+package bonusassignment.WithGUI;
 
 public class IllegalCodeException extends RuntimeException {
 
