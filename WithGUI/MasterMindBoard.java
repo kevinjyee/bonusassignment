@@ -271,8 +271,20 @@ class MasterMindBoard extends JPanel
 		for(int count = 0; count < Mastermind.thisGuess.size(); count++)
 		{
 			g.setColor(guessCode[count]);
-			g.fillArc(xOffset + count*SIDE_OFFSET - 6,yOffset - 6,12,12,0,360);
+			g.fillArc(xOffset + count*SIDE_OFFSET - 6,yOffset + 60,12,12,0,360);
 		}
+		
+		int emptypegs = Mastermind.numPegs - Mastermind.thisGuess.size();
+		
+		
+		for(int count = Mastermind.thisGuess.size(); count<Mastermind.numPegs; count++){
+			g.setColor(holeColor);
+			g.fillArc(xOffset + count*SIDE_OFFSET - 6,yOffset + 60,12,12,0,360);
+			
+		}
+		
+		
+		
 	}
 	//returns the color of a results peg, given that it is the numpeg'th peg t be placed, and that there were the given number of correct guesses and correct colors
 	private Color getColor(int numRight, int numWhite, int numPeg)

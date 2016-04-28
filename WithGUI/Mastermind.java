@@ -20,6 +20,7 @@ public class Mastermind {
 	public static MasterGUI runningGame;
 	public static void main(String[] args) {
 		
+		boolean submit = false;
 		boolean continue_playing = true;
 		boolean replay = false;
 		
@@ -70,22 +71,22 @@ public class Mastermind {
 					
 					try{
 
-						if(guess.toLowerCase().equals("history")){
-							game.getHistory();
-						}
-						else{
+						
+						
 							if(guess.length() == numPegs){
+							game.setNextGuess(guess);
 							ResultPegs pegs = game.checkLastGuess();
 							String result = pegs.getResult();
 							System.out.println(guess + " --->Result:" + result);
 							game.setGuessResult(game.getNumGuesses()-1, result);
 							gameBoard.submitFeedback(guess,pegs.getBlackPegs() , pegs.getWhitePegs());
+							guess = "";
 							if(pegs.getBlackPegs() == numPegs){
 								gameBoard.gameover();
 								GameMessages.winMessage(game);
 							}
 							}
-						}
+						
 
 
 					} catch(IllegalCodeException e){
@@ -183,6 +184,7 @@ public class Mastermind {
 				
 			} else if (src == redact_button){
 				thisGuess.clear();
+				runningGame.repaint();
 			}
 		  }
 		  
