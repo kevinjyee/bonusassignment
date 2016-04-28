@@ -1,4 +1,4 @@
-package bonusassignment;
+package bonusassignment;//.WithGUI;
 
 import java.awt.*;
 import java.util.*;
@@ -39,10 +39,10 @@ class MasterMindBoard extends JPanel
 	private int[] numBlack;
 	private int[] numWhite;
 	private String correctGuess = "????";
-	private JButton[] clickable;
+	private MyButtons clickable;
 
 
-	public MasterMindBoard(int pNumGuesses, String secretCode, JButton[] butt)
+	public MasterMindBoard(int pNumGuesses, String secretCode, MyButtons butt)
 	{
 		numGuesses = pNumGuesses;
 		correctGuess = secretCode;
@@ -56,7 +56,6 @@ class MasterMindBoard extends JPanel
 	@Override
 	public void paintComponent(Graphics g)
 	{
-
 		drawBoard(g,100,60);
 		paintDirections(g,117,65 + BOARD_HEIGHT);
 		paintGuessBuffer(g, 117, 80+ BOARD_HEIGHT);
@@ -69,12 +68,6 @@ class MasterMindBoard extends JPanel
 //		add(clickable.yellow_button);
 //		add(clickable.submit_button);
 //		add(clickable.redact_button);
-
-
-		for(int i = 0; i < clickable.length; i++){
-			add(clickable[i]);
-		}
-
 		
 		
 	}

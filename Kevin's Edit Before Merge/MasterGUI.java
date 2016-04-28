@@ -1,4 +1,4 @@
-package bonusassignment;
+package bonusassignment;//.WithGUI;
 
 import java.awt.*;
 import java.util.*;
@@ -15,7 +15,7 @@ public class MasterGUI extends JFrame
 
 	//Constructor makes a JFrame, adds the guess menu, and the board
 	//needs the number of guesses for this game and an object to register button clicks
-	public MasterGUI(int numGuesses, String correctGuess, JButton[] clickable)
+	public MasterGUI(int numGuesses, String correctGuess, MyButtons clickable)
 	{
 		//super("MasterMind");
 
