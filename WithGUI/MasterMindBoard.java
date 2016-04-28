@@ -56,16 +56,18 @@ class MasterMindBoard extends JPanel
 	@Override
 	public void paintComponent(Graphics g)
 	{
-		drawBoard(g,100,15);
-		paintDirections(g,117,30 + BOARD_HEIGHT);
-		add(clickable.red_button);
-		add(clickable.blue_button);
-		add(clickable.green_button);
-		add(clickable.purple_button);
-		add(clickable.orange_button);
-		add(clickable.yellow_button);
-		add(clickable.submit_button);
-		add(clickable.redact_button);
+		drawBoard(g,100,60);
+		paintDirections(g,117,65 + BOARD_HEIGHT);
+		paintGuessBuffer(g, 117, 80+ BOARD_HEIGHT);
+		
+//		add(clickable.red_button);
+//		add(clickable.blue_button);
+//		add(clickable.green_button);
+//		add(clickable.purple_button);
+//		add(clickable.orange_button);
+//		add(clickable.yellow_button);
+//		add(clickable.submit_button);
+//		add(clickable.redact_button);
 		
 		
 	}
@@ -96,9 +98,17 @@ class MasterMindBoard extends JPanel
 	//draws the board at the given location of the JPanel
 	private void drawBoard(Graphics g, int xOffset, int yOffset)
 	{
+		Images dog = new Images();
+		try{
+		dog.initImages();
+		}
+		catch(Exception e){
+			
+		}
 		g.translate(xOffset,yOffset);
-		g.setColor(boardColor);
-		g.fillRect(0,0,BOARD_WIDTH,BOARD_HEIGHT);
+		 g.drawImage(dog.DOGE_IMAGE, 0, 0, null);
+//		g.setColor(boardColor);
+//		g.fillRect(0,0,BOARD_WIDTH,BOARD_HEIGHT);
 		
 		int x = 30;
 		int y = 30;
@@ -217,6 +227,34 @@ class MasterMindBoard extends JPanel
 		g.drawString("= correct color, wrong place",xOffset + 8,yOffset + 28);
 	}
 	
+	
+	private void paintGuessBuffer(Graphics g,  int xOffset, int yOffset)
+	
+	{
+		emptyGuess(g, xOffset, yOffset);
+		
+		
+		
+	}
+	
+	
+	private void emptyGuess(Graphics g, int xOffset, int yOffset){
+		g.setColor(holeColor);
+		for(int count = 0; count < Mastermind.numPegs; count++)
+		{
+			g.fillArc(xOffset + count*SIDE_OFFSET - 6,yOffset + 60,12,12,0,360);
+		}
+	}
+	
+	private void nonemptyGuess(Graphics g, int xOffset, int yOffset){
+		String code = "";
+		Color[] guessCode = colorSelector(code);
+		for(int count = 0; count < Mastermind.numPegs; count++)
+		{
+			g.setColor(guessCode[count]);
+			g.fillArc(xOffset + count*SIDE_OFFSET - 6,yOffset - 6,12,12,0,360);
+		}
+	}
 	//returns the color of a results peg, given that it is the numpeg'th peg t be placed, and that there were the given number of correct guesses and correct colors
 	private Color getColor(int numRight, int numWhite, int numPeg)
 	{

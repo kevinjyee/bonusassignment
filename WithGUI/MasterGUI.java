@@ -32,7 +32,7 @@ public class MasterGUI extends JFrame
 		setLayout(org);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
-		setSize(400,650);
+		setSize(450,750);
 		add(graphic);
 		setVisible(true);
 	}
