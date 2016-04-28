@@ -1,6 +1,8 @@
 package bonusassignment;
 import java.util.*;
 import javax.swing.JOptionPane;
+
+import java.awt.event.MouseEvent;
 import java.io.Console;
 public class Mastermind {
 
@@ -10,67 +12,88 @@ public class Mastermind {
 	
 	public static void main(String[] args) {
 		
-		JOptionPane frame = new JOptionPane();
-		GameMessages.intro();
+		boolean continue_playing = true;
+		boolean replay = false;
 		
-		int reply = JOptionPane.showConfirmDialog(null,
-				  "Would you like to change the number of Guesses, Colors, and Pegs away from the default?"
-		        , "Change parameters", JOptionPane.YES_NO_OPTION);
-			        if (reply == JOptionPane.YES_OPTION) {
-			         GameMessages.chooseNumGuesses();
-			         GameMessages.chooseNumPegs();
-			        }
-			        else {
-			           JOptionPane.showMessageDialog(null, "Default Values will be used\nYou will have 12 guesses, 6 colors, and 4 pegs");
-			        }
-		
-	    Board game = new Board();
-	    
-        MasterGUI gameBoard = new MasterGUI(numGuess, game.getSecretCode());
-	    
-		while(true){
+		while(continue_playing){
 			
-			if(game.getNumGuesses() == numGuess)
-			{
-				gameBoard.gameover();
-				GameMessages.outofGuesses(game);
-				
-			}
-			
-			int guessleft = numGuess - game.getNumGuesses();
-			
-			
-			String guess = JOptionPane.showInputDialog("You have " + guessleft + " guesses left. What is your next guess? \nType in the characters for your guess"
-				+ " and press enter. \nOr enter 'history' to see game history \nEnter guess:");
 			try{
-				if(guess.toLowerCase().equals("history")){
-					game.getHistory();
+
+				JOptionPane frame = new JOptionPane();
+				if(!replay){
+					GameMessages.intro();
 				}
-				else{
-					game.setNextGuess(guess);
-					ResultPegs pegs = game.checkLastGuess();
-					String result = pegs.getResult();
-					System.out.println(guess + " --->Result:" + result);
-					game.setGuessResult(game.getNumGuesses()-1, result);
-					gameBoard.submitFeedback(guess,pegs.getBlackPegs() , pegs.getWhitePegs());
-					if(pegs.getBlackPegs() == numPegs){
+
+				int reply = JOptionPane.showConfirmDialog(null,
+						"Would you like to change the number of Guesses, Colors, and Pegs away from the default?"
+						, "Change parameters", JOptionPane.YES_NO_OPTION);
+				if (reply == JOptionPane.YES_OPTION) {
+					GameMessages.chooseNumGuesses();
+					GameMessages.chooseNumPegs();
+				}
+				else {
+					JOptionPane.showMessageDialog(null, "Default Values will be used\nYou will have 12 guesses, 6 colors, and 4 pegs");
+				}
+
+				Board game = new Board();
+
+				MasterGUI gameBoard = new MasterGUI(numGuess, game.getSecretCode());
+
+				while(true){
+
+					if(game.getNumGuesses() == numGuess)
+					{
 						gameBoard.gameover();
-					GameMessages.winMessage(game);
+						GameMessages.outofGuesses(game);
+
+					}
+
+					int guessleft = numGuess - game.getNumGuesses();
+
+
+					String guess = JOptionPane.showInputDialog("You have " + guessleft + " guesses left. What is your next guess? \n"
+							+ "Type in the characters for your guess."
+							+ " and press enter. Options include BGOPRY. \nOr enter 'history' to see game history \nEnter guess:");
+					try{
+						if(guess.toLowerCase().equals("history")){
+							game.getHistory();
+						}
+						else{
+							game.setNextGuess(guess);
+							ResultPegs pegs = game.checkLastGuess();
+							String result = pegs.getResult();
+							System.out.println(guess + " --->Result:" + result);
+							game.setGuessResult(game.getNumGuesses()-1, result);
+							gameBoard.submitFeedback(guess,pegs.getBlackPegs() , pegs.getWhitePegs());
+							if(pegs.getBlackPegs() == numPegs){
+								gameBoard.gameover();
+								GameMessages.winMessage(game);
+							}
+						}
+
+
+					} catch(IllegalCodeException e){
+						JOptionPane.showMessageDialog(frame,
+								"INVALID GUESS",
+								"Inane warning",
+								JOptionPane.WARNING_MESSAGE);
+					} catch(NullPointerException e){
+						System.out.println("Game Exited");
+						System.exit(0);
 					}
 				}
-				
-				
-			} catch(IllegalCodeException e){
-				JOptionPane.showMessageDialog(frame,
-					    "INVALID GUESS",
-					    "Inane warning",
-					    JOptionPane.WARNING_MESSAGE);
-			} catch(NullPointerException e){
-				System.out.println("Game Exited");
-				System.exit(0);
+			} catch(RestartException e){
+				continue_playing = true;
+				replay = true;
 			}
-		 }
+		}
 
 	 }
+	
+	public void mouseClicked(MouseEvent e) {
+	    int x=e.getX();
+	    int y=e.getY();
+	    System.out.println(x+","+y);//these co-ords are relative to the component
+	}
 	
 }

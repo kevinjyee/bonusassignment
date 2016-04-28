@@ -1,5 +1,6 @@
 package bonusassignment;
 
+import java.awt.Color;
 import java.util.Random;
 
 public class Board {
@@ -88,16 +89,15 @@ public class Board {
 
 	
 	public ResultPegs checkLastGuess(){
-		ResultPegs result = new ResultPegs();
 		Code last_guess = getGuess(guesses - 1);
+		ResultPegs result = ResultPegs.checkGuess(last_guess, secret_code);
 		
+		/*
 		char[] guess = last_guess.code.toLowerCase().toCharArray();
 		char[] secret = secret_code.code.toLowerCase().toCharArray();
 		
-		
 		int bcount =0;
 		int wcount =0;
-		
 		
 		for(int i =0; i < Mastermind.numPegs; i++){
 			if(guess[i] == secret[i]){
@@ -105,7 +105,6 @@ public class Board {
 				bcount ++;
 			}
 		}
-	
 		
 		if(bcount != Mastermind.numPegs){
 			for(int i =0; i < Mastermind.numPegs; i++){
@@ -123,7 +122,7 @@ public class Board {
 		}
 			result.setBlackPegs(bcount);
 			result.setWhitePegs(wcount);
-		
+		*/
 		return result;
 	}
 	

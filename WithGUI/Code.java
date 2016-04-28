@@ -1,5 +1,7 @@
 package bonusassignment;
 
+import java.awt.Color;
+
 public class Code {
 	protected String code;
 	protected String result;
@@ -37,6 +39,33 @@ public class Code {
 			}
 		}
 		return true;
+	}
+	
+	public int[] getColorCount(){
+		int[] result = new int[6];
+		for(int i = 0; i < result.length; i++){
+			result[i] = 0;
+		}
+		for(int i = 0; i < this.getCode().length(); i++){
+			String character = this.getCode().substring(i, i + 1);
+			switch(character){
+				case "B": case "b": result[0]++;
+					break;
+				case "G": case "g": result[1]++;
+					break;
+				case "O": case "o": result[2]++;
+					break;
+				case "P": case "p": result[3]++;
+					break;
+				case "R": case "r": result[4]++;
+					break;
+				case "Y": case "y": result[5]++;
+					break;
+				default:
+					break;
+			}
+		}
+		return result;
 	}
 	
 	public String getCode(){

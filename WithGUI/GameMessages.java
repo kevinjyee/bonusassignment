@@ -37,11 +37,13 @@ public class GameMessages {
 	
 	public static void outofGuesses(Board game){
 		int reply = JOptionPane.showConfirmDialog(null,
-				"You've ran out of guesses!\n"
+				"You've run out of guesses!\n"
 				+ "Would you like to play again?"
 		        , "Confirmation", JOptionPane.YES_NO_OPTION);
 			        if (reply == JOptionPane.YES_OPTION) {
 			         game.guesses =0;
+			         throw new RestartException();
+			         /*
 			         int useDefault = chooseStartingValues();
 			         if(useDefault == JOptionPane.YES_OPTION){
 			        	 Mastermind.numGuess = 12;
@@ -51,6 +53,7 @@ public class GameMessages {
 			        	 chooseNumGuesses();
 			        	 chooseNumPegs();
 			         }
+			         */
 			        }
 			        else {
 			           JOptionPane.showMessageDialog(null, "GOODBYE");
@@ -66,6 +69,8 @@ public class GameMessages {
 		        , "Confirmation", JOptionPane.YES_NO_OPTION);
 			        if (reply == JOptionPane.YES_OPTION) {
 			         game.guesses =0;
+			         throw new RestartException();
+			         /*
 			         int useDefault = chooseStartingValues();
 			         if(useDefault == JOptionPane.YES_OPTION){
 			        	 Mastermind.numGuess = 12;
@@ -75,7 +80,7 @@ public class GameMessages {
 			        	 chooseNumGuesses();
 			        	 chooseNumPegs();
 			         }
-			         
+			         */
 			        }
 			        else {
 			           JOptionPane.showMessageDialog(null, "GOODBYE");

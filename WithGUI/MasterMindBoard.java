@@ -23,9 +23,14 @@ class MasterMindBoard extends JPanel
 
 
 	//colors
-	final static Color boardColor = new Color(151, 195, 10);
+	//final static Color boardColor = new Color(151, 195, 10);
+	final static Color boardColor = new Color(184, 134, 11);
+	//184-134-11
+	//240-230-140
 	final static Color holeColor = new Color(10,10,10);
 	final static Color guessedCode = new Color( 85, 85, 85);
+	final static Color KHAKI = new Color(240, 230, 140);
+	final static Color PURPLE = new Color(160, 32, 240);
 
 	private boolean gameOver = false;
 	private int numGuesses = 1;
@@ -102,8 +107,10 @@ class MasterMindBoard extends JPanel
 
 
 		//draws the solution area
-		g.setColor(Color.GREEN);
+		g.setColor(KHAKI);
 		g.fillRect(x-10,500 - (int)(1.5 * y), 130,y);
+		//paintHiddenCode(g, x, 513 - (int)(1.5 * y));
+		g.setColor(KHAKI);
 
 		if(gameOver)
 		{
@@ -135,15 +142,35 @@ class MasterMindBoard extends JPanel
 	//paints a guess on the board
 	private void paintGuess(Graphics g, int xOffset, int yOffset, String code)
 	{
+		Color[] guessCode = colorSelector(code);
+		for(int count = 0; count < Mastermind.numPegs; count++)
+		{
+			g.setColor(guessCode[count]);
+			g.fillArc(xOffset + count*SIDE_OFFSET - 6,yOffset - 6,12,12,0,360);
+		}
+		if(code.equals("????"))
+		{
+			g.setColor(guessedCode);
+			g.setFont(new Font("arial",Font.BOLD,16));
+			for(int count = 0; count < Mastermind.numPegs && count < code.length(); count++)
+			{
+				g.drawString("" + code.charAt(count),xOffset + count*SIDE_OFFSET - 5,yOffset + 5);
+			}
+		}
+		
+	}
+	
+	// Draws question marks in secret code area.
+	private void paintHiddenCode(Graphics g, int xOffset, int yOffset){
 		g.setColor(guessedCode);
 		g.setFont(new Font("arial",Font.BOLD,16));
-		for(int count = 0; count < Mastermind.numPegs && count < code.length(); count++)
+		for(int i = 0; i < Mastermind.numPegs; i++)
 		{
-			g.drawString("" + code.charAt(count),xOffset + count*SIDE_OFFSET - 5,yOffset + 5);
+			g.drawString("?",xOffset + i*SIDE_OFFSET - 5,yOffset + 5);
 		}
 	}
 
-	//paints the results of an unspecified gues on the board
+	//paints the results of an unspecified guess on the board
 	private void paintResults(Graphics g, int xOffset, int yOffset, int numBlack, int numWhite)
 	{
 		g.setColor(getColor(numBlack,numWhite,1));
@@ -154,16 +181,6 @@ class MasterMindBoard extends JPanel
 		g.fillOval(xOffset - 3,yOffset + RESULTS_OFFSET - 3,6,6);
 		g.setColor(getColor(numBlack,numWhite,4));
 		g.fillOval(xOffset + RESULTS_OFFSET - 3,yOffset + RESULTS_OFFSET - 3,6,6);
-	}
-
-	//returns the color of a results peg, given that it is the numpeg'th peg t be placed, and that there were the given number of correct guesses and correct colors
-	private Color getColor(int numRight, int numWhite, int numPeg)
-	{
-		if(numPeg <= numRight)
-			return Color.RED;
-		if(numPeg <= numRight + numWhite)
-			return Color.WHITE;
-		return Color.BLACK;
 	}
 
 	//Prints the directions for what the board means
@@ -183,8 +200,43 @@ class MasterMindBoard extends JPanel
 
 		//paint words
 		g.setColor(Color.BLACK);
-		g.drawString("= correct letter and place",xOffset + 8,yOffset + 12);
-		g.drawString("= correct letter, wrong place",xOffset + 8,yOffset + 28);
+		g.drawString("= correct color and place",xOffset + 8,yOffset + 12);
+		g.drawString("= correct color, wrong place",xOffset + 8,yOffset + 28);
+	}
+	
+	//returns the color of a results peg, given that it is the numpeg'th peg t be placed, and that there were the given number of correct guesses and correct colors
+	private Color getColor(int numRight, int numWhite, int numPeg)
+	{
+		if(numPeg <= numRight)
+			return Color.RED;
+		if(numPeg <= numRight + numWhite)
+			return Color.WHITE;
+		return Color.BLACK;
+	}
+	
+	private Color[] colorSelector(String code){
+		//"BGOPRY"
+		Color[] result = new Color[code.length()];
+		for(int i = 0; i < code.length(); i++){
+			String character = code.substring(i, i + 1);
+			switch(character){
+				case "B": case "b": result[i] = Color.BLUE;
+					break;
+				case "G": case "g": result[i] = Color.GREEN;
+					break;
+				case "O": case "o": result[i] = Color.ORANGE;
+					break;
+				case "P": case "p": result[i] = PURPLE;
+					break;
+				case "R": case "r": result[i] = Color.RED;
+					break;
+				case "Y": case "y": result[i] = Color.YELLOW;
+					break;
+				default:
+					break;
+			}
+		}
+		return result;
 	}
 }
 
