@@ -238,14 +238,19 @@ class MasterMindBoard extends JPanel
 	private void paintGuessBuffer(Graphics g,  int xOffset, int yOffset)
 	
 	{
+		if(Mastermind.thisGuess.size() == 0){
 		emptyGuess(g, xOffset, yOffset);
-		
+		}
+		else{
+			nonemptyGuess(g, xOffset,yOffset);
+		}
 		
 		
 	}
 	
 	
 	private void emptyGuess(Graphics g, int xOffset, int yOffset){
+		
 		g.setColor(holeColor);
 		for(int count = 0; count < Mastermind.numPegs; count++)
 		{
@@ -254,7 +259,14 @@ class MasterMindBoard extends JPanel
 	}
 	
 	private void nonemptyGuess(Graphics g, int xOffset, int yOffset){
+		ArrayList<String> guessArray = Mastermind.thisGuess;
 		String code = "";
+		
+		for(int i =0; i < Mastermind.thisGuess.size(); i++){
+			code+=Mastermind.thisGuess.get(i);
+		}
+		
+		
 		Color[] guessCode = colorSelector(code);
 		for(int count = 0; count < Mastermind.numPegs; count++)
 		{
